@@ -48,12 +48,18 @@ describe('sockbot-helper-nestedcommands', () => {
             cmds.add(command, () => 0, 'foobar');
             cmds.commands[command].should.be.ok;
         });
+        it('should add command to commands list (Normalize case)', () => {
+            const command = `abc${Math.random()}def`;
+            chai.expect(cmds.commands[command]).to.be.undefined;
+            cmds.add(command.toUpperCase(), () => 0, 'foobar');
+            cmds.commands[command].should.be.ok;
+        });
         it('should store command handler', () => {
             const handler = sinon.spy();
             cmds.add('command', handler, 'foobar');
             cmds.commands.command.handler.should.equal(handler);
         });
-        it('should add command to commands list', () => {
+        it('should store command helpText', () => {
             const expected = `abc${Math.random()}def`;
             cmds.add('command', () => 0, expected);
             cmds.commands.command.helpText.should.equal(expected);
@@ -156,6 +162,15 @@ describe('sockbot-helper-nestedcommands', () => {
                 command.reply.called.should.be.false;
                 command.parentText.should.equal('more nested');
                 command.args.should.eql([expected]);
+            });
+        });
+        it('should execute sub command when recognized case insensitive', () => {
+            const expected = `aaa${Math.random()}bbb`;
+            command.args.push('NESTED');
+            command.args.push(expected);
+            return cmds.handler(command).then(() => {
+                handler.called.should.be.true;
+                handler.calledWith(command).should.be.true;
             });
         });
     });

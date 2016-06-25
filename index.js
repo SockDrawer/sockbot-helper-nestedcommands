@@ -14,7 +14,7 @@
 class NestedCommand {
     /**
      * Create a NestedCommand instance
-     * 
+     *
      * @public
      * @class
      */
@@ -31,13 +31,13 @@ class NestedCommand {
 
     /**
      * Add a sub command to this NestedCommand instance
-     * 
+     *
      * @param {string} command Command name to register as a sub command
      * @param {CommandHandler} handler Standard SockBot command handler to register
      * @param {string} helpText Short help text for sub command
      */
     add(command, handler, helpText) {
-        this.commands[command] = {
+        this.commands[command.toLowerCase()] = {
             handler: handler,
             helpText: helpText
         };
