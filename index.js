@@ -18,33 +18,31 @@ class NestedCommand {
         };
     }
     _handler(command) {
-        const cmd = command.args.shift(); // pop the nested command
-
-        let parents = command.parentText || '';
-        if (!parents) {
-            parents += command.commandText;
-        }
-        parents += ' ';
+        const cmd = command.args.shift(), // pop the nested command
+            parents = `${command.parentText || command.commandText} `;
         if (!cmd) {
-            const msg = `no sub command provided for '${parents}', try '${parents} help' for recognized commands`;
+            const msg = `no sub command provided for '${parents.trim()}', try '${parents}help' for recognized commands`;
             command.reply(msg);
             return Promise.resolve();
-        } else {
-            const handler = this.commands[cmd.toLowerCase()];
-            if (handler) {
-                command.parentText = parents + cmd;
-                return handler.handler(command);
-            }
         }
-        const msg = `'${parents}${cmd}' is not recognized, try '${parents} help' for recognized commands`;
+        const handler = this.commands[cmd.toLowerCase()];
+        if (handler) {
+            if (command.parentText) {
+                command.parentText = parents + cmd;
+            } else {
+                command.parentText = parents.trim();
+            }
+            return handler.handler(command);
+        }
+        const msg = `'${parents}${cmd}' is not recognized, try '${parents}help' for recognized commands`;
         command.reply(msg);
         return Promise.resolve();
     }
     _help(command) {
         return new Promise((resolve) => {
             const keys = Object.keys(this.commands),
-                result = ['Registered commands:'];
-            let parents = command.parentText.replace(/help$/, '');
+                result = ['Registered commands:'],
+                parents = command.parentText.replace(/help$/, '');
             keys.sort();
             keys.forEach((key) => result.push(`${parents}${key}: ${this.commands[key].helpText}`));
             command.reply(result.join('\n'));

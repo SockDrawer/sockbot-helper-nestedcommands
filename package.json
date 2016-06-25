@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "pretest": "npm run lint",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "preistanbul": "npm run lint",
+    "istanbul": "istanbul cover node_modules/mocha/bin/_mocha --print both -x 'external/**' -x 'build/**' --include-all-sources -- --recursive -R dot",
+    "pretest": "npm run istanbul",
+    "test": "istanbul check-coverage coverage/coverage.json",
+    "mocha": "mocha --recursive -R dot",
+    "commit": "git-cz"
   },
   "repository": {
     "type": "git",
@@ -25,7 +29,8 @@
     "eslint": "^2.13.1",
     "istanbul": "^0.4.4",
     "mocha": "^2.5.3",
-    "sinon": "^1.17.4"
+    "sinon": "^1.17.4",
+    "sinon-as-promised": "^4.0.0"
   },
   "config": {
     "commitizen": {
