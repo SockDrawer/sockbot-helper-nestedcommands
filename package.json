@@ -4,6 +4,8 @@
   "description": "nested commands helper for sockbot",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/SockDrawer/sockbot-helper-nestedcommands/issues"
   },
-  "homepage": "https://github.com/SockDrawer/sockbot-helper-nestedcommands#readme"
+  "homepage": "https://github.com/SockDrawer/sockbot-helper-nestedcommands#readme",
+  "devDependencies": {
+    "eslint": "^2.13.1",
+    "istanbul": "^0.4.4",
+    "mocha": "^2.5.3"
+  }
 }
