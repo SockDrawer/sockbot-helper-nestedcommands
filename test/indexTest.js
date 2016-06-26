@@ -19,8 +19,8 @@ describe('sockbot-helper-nestedcommands', () => {
             NestedCommand.should.be.a('function');
         });
         it('should require `new`', () => {
-            const err = 'Class constructor NestedCommand cannot be invoked without \'new\'';
-            chai.expect(() => NestedCommand()).to.throw(err); //eslint-disable-line new-cap
+            chai.expect(() => NestedCommand()).to.throw(); //eslint-disable-line new-cap
+            chai.expect(() => new NestedCommand()).to.not.throw();
         });
         const fns = ['add', 'handler', 'help', '_handler', '_help'];
         fns.forEach((fn) => it(`should expose function ${fn}`, () => {
