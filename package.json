@@ -1,6 +1,5 @@
 {
   "name": "sockbot-helper-nestedcommands",
-  "version": "0.1.0",
   "description": "nested commands helper for sockbot",
   "main": "index.js",
   "scripts": {
@@ -10,11 +9,12 @@
     "pretest": "npm run istanbul",
     "test": "istanbul check-coverage coverage/coverage.json",
     "mocha": "mocha --recursive -R dot",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SockDrawer/sockbot-helper-nestedcommands.git"
+    "url": "https://github.com/SockDrawer/sockbot-helper-nestedcommands.git"
   },
   "author": "Accalia Elementia",
   "license": "MIT",
@@ -30,7 +30,8 @@
     "istanbul": "^0.4.4",
     "mocha": "^2.5.3",
     "sinon": "^1.17.4",
-    "sinon-as-promised": "^4.0.0"
+    "sinon-as-promised": "^4.0.0",
+    "semantic-release": "^4.3.5"
   },
   "config": {
     "commitizen": {

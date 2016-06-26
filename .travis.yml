@@ -1,0 +1,18 @@
+sudo: false
+language: node_js
+notifications:
+  email: false
+node_js:
+  - 'node'
+  - '4'
+  - '5'
+  - '6.1'
+  - '6.2'
+before_script:
+  - npm prune
+  - rm -rf ./coverage
+after_success:
+  - node build/travis_after_all semantic-release
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
